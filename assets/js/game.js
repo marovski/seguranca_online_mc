@@ -13,16 +13,30 @@ class SecurityGame {
     constructor() {
         this.currentLevel = 0;
         this.score = 0;
-        this.levels = [
+        this.levels = this.getLevels();
+
+        // Track game instances globally
+        window.securityGameInstances = window.securityGameInstances || [];
+        window.securityGameInstances.push(this);
+
+        this.initializeGame();
+        this.updateVisitCounter();
+
+        // Add event listeners for share buttons
+        this.addShareButtonListeners();
+    }
+
+    getLevels() {
+        return [
             {
                 title: "Criação de Palavras-passe Fortes",
                 type: "password",
                 description: "Selecione a palavra-passe mais segura:",
                 options: [
-                    {text: "password123", correct: false},
-                    {text: "MinhaDataNascimento1990", correct: false},
-                    {text: "K9$mP#2@vL5nX", correct: true},
-                    {text: "qwerty", correct: false}
+                    { text: "password123", correct: false },
+                    { text: "MinhaDataNascimento1990", correct: false },
+                    { text: "K9$mP#2@vL5nX", correct: true },
+                    { text: "qwerty", correct: false }
                 ],
                 feedback: {
                     success: "Excelente! Uma palavra-passe forte combina letras maiúsculas e minúsculas, números e símbolos.",
@@ -34,10 +48,10 @@ class SecurityGame {
                 type: "2fa",
                 description: "Qual é a melhor opção para configurar 2FA?",
                 options: [
-                    {text: "Usar apenas palavra-passe", correct: false},
-                    {text: "SMS + palavra-passe", correct: false},
-                    {text: "Aplicação autenticador + palavra-passe", correct: true},
-                    {text: "Email de recuperação", correct: false}
+                    { text: "Usar apenas palavra-passe", correct: false },
+                    { text: "SMS + palavra-passe", correct: false },
+                    { text: "Aplicação autenticador + palavra-passe", correct: true },
+                    { text: "Email de recuperação", correct: false }
                 ],
                 feedback: {
                     success: "Correto! Uma aplicação autenticador é mais segura que SMS para 2FA.",
@@ -49,10 +63,10 @@ class SecurityGame {
                 type: "phishing",
                 description: "Identifique o email suspeito:",
                 options: [
-                    {text: "suporte@bancodoportugal.pt - Atualização de segurança necessária", correct: false},
-                    {text: "banco-portugal-urgente@mail.ru - O seu acesso foi bloqueado", correct: true},
-                    {text: "newsletter@bancoportugal.pt - Relatório mensal", correct: false},
-                    {text: "contacto@bancoportugal.pt - Confirmação de transferência", correct: false}
+                    { text: "suporte@bancodoportugal.pt - Atualização de segurança necessária", correct: false },
+                    { text: "banco-portugal-urgente@mail.ru - O seu acesso foi bloqueado", correct: true },
+                    { text: "newsletter@bancoportugal.pt - Relatório mensal", correct: false },
+                    { text: "contacto@bancoportugal.pt - Confirmação de transferência", correct: false }
                 ],
                 feedback: {
                     success: "Correto! Emails de domínios suspeitos e mensagens urgentes são sinais comuns de phishing.",
@@ -64,10 +78,10 @@ class SecurityGame {
                 type: "updates",
                 description: "Qual é a melhor prática para manter o seu dispositivo seguro?",
                 options: [
-                    {text: "Ignorar todas as atualizações", correct: false},
-                    {text: "Atualizar apenas quando for conveniente", correct: false},
-                    {text: "Ativar atualizações automáticas", correct: true},
-                    {text: "Atualizar apenas uma vez por ano", correct: false}
+                    { text: "Ignorar todas as atualizações", correct: false },
+                    { text: "Atualizar apenas quando for conveniente", correct: false },
+                    { text: "Ativar atualizações automáticas", correct: true },
+                    { text: "Atualizar apenas uma vez por ano", correct: false }
                 ],
                 feedback: {
                     success: "Correto! Manter o dispositivo atualizado ajuda a corrigir vulnerabilidades de segurança.",
@@ -79,10 +93,10 @@ class SecurityGame {
                 type: "wifi",
                 description: "Como se proteger ao usar WiFi público?",
                 options: [
-                    {text: "Fazer login em todas as contas normalmente", correct: false},
-                    {text: "Usar VPN e evitar transações sensíveis", correct: true},
-                    {text: "Deixar o WiFi sempre ligado", correct: false},
-                    {text: "Usar o mesmo WiFi sem cautela", correct: false}
+                    { text: "Fazer login em todas as contas normalmente", correct: false },
+                    { text: "Usar VPN e evitar transações sensíveis", correct: true },
+                    { text: "Deixar o WiFi sempre ligado", correct: false },
+                    { text: "Usar o mesmo WiFi sem cautela", correct: false }
                 ],
                 feedback: {
                     success: "Excelente! Uma VPN protege a sua conexão em redes públicas.",
@@ -90,18 +104,6 @@ class SecurityGame {
                 }
             }
         ];
-
-        // Track game instances globally
-        window.securityGameInstances = window.securityGameInstances || [];
-        window.securityGameInstances.push(this);
-
-        this.initializeGame();
-        this.updateVisitCounter();
-
-        // Add event listeners for share buttons
-        document.getElementById('share-twitter')?.addEventListener('click', () => this.shareResult('twitter'));
-        document.getElementById('share-whatsapp')?.addEventListener('click', () => this.shareResult('whatsapp'));
-        document.getElementById('copy-link')?.addEventListener('click', () => this.shareResult('copy'));
     }
 
     shuffleArray(array) {
@@ -118,9 +120,14 @@ class SecurityGame {
         document.getElementById('restart-btn').addEventListener('click', () => this.restartGame());
     }
 
+    addShareButtonListeners() {
+        document.getElementById('share-twitter')?.addEventListener('click', () => this.shareResult('twitter'));
+        document.getElementById('share-whatsapp')?.addEventListener('click', () => this.shareResult('whatsapp'));
+        document.getElementById('copy-link')?.addEventListener('click', () => this.shareResult('copy'));
+    }
+
     startGame() {
         this.levels = this.shuffleArray(this.levels);
-        
         this.switchScreen('title-screen', 'game-screen');
         this.loadLevel();
     }
@@ -155,7 +162,7 @@ class SecurityGame {
         gameArea.innerHTML = `
             <p>${level.description}</p>
             <div class="options">
-                ${shuffledOptions.map((option, index) => `
+                ${shuffledOptions.map(option => `
                     <button class="choice-btn" data-correct="${option.correct}">
                         ${option.text}
                     </button>
@@ -203,7 +210,6 @@ class SecurityGame {
 
     restartGame() {
         this.levels = this.shuffleArray(this.levels);
-        
         this.currentLevel = 0;
         this.score = 0;
         document.getElementById('score-value').textContent = this.score;
@@ -224,8 +230,8 @@ class SecurityGame {
 
     shareResult(platform) {
         const score = this.score;
-        const shareText = `Completei a Aventura Segurança Online com ${score} pontos! Teste os seus conhecimentos de cibersegurança em https://dekodifika.com`;
-        const url = 'https://dekodifika.com';
+        const shareText = `Completei a Aventura Segurança Online com ${score} pontos! Teste os seus conhecimentos de cibersegurança em https://marovski.github.io/seguranca_online_mc/`;
+        const url = 'https://www.balai.cv/autores/mario-cardoso/dekodifika-tech-como-manter-se-seguro-online/';
 
         switch(platform) {
             case 'twitter':

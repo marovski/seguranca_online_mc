@@ -1,14 +1,17 @@
+<!DOCTYPE html>
 <html lang="pt-PT">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aventura Segurança Online - Dekodifika Tech</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="./assets/css/styles.css">
+    <link rel="icon" type="image/x-icon" href="./assets/img/cyber-security.png">
     <!-- Add social share script -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.10/clipboard.min.js"></script>
 </head>
 <body>
     <div id="game-container">
+        <!-- Title Screen -->
         <div id="title-screen" class="screen active">
             <div class="title-container">
                 <h1>Aventura Segurança Online - Dekodifika Tech</h1>
@@ -20,6 +23,7 @@
             <button id="start-btn">🎮 Começar Aventura</button>
         </div>
 
+        <!-- Game Screen -->
         <div id="game-screen" class="screen">
             <div id="level-info">
                 <h2 id="level-title"></h2>
@@ -28,9 +32,7 @@
                 </div>
                 <div id="score">🏆 Pontuação: <span id="score-value">0</span></div>
             </div>
-
             <div id="game-area"></div>
-
             <div id="feedback-modal" class="modal">
                 <div class="modal-content">
                     <div class="emoji-icon" id="feedback-emoji"></div>
@@ -41,31 +43,25 @@
             </div>
         </div>
 
+        <!-- End Screen -->
         <div id="end-screen" class="screen">
             <div class="emoji-icon">🎉</div>
             <h2>Parabéns!</h2>
             <p>Completou a Aventura CiberSegura!</p>
             <p>🏆 Pontuação Final: <span id="final-score">0</span></p>
             
-            <!-- Add social share section -->
+            <!-- Social Share Section -->
             <div class="social-share">
                 <p>Partilhe o seu resultado!</p>
                 <div class="share-buttons">
-                    <button id="share-twitter" class="share-btn twitter" onclick="shareResult('twitter')">
-                        🐦 Twitter
-                    </button>
-                    <button id="share-whatsapp" class="share-btn whatsapp" onclick="shareResult('whatsapp')">
-                        💬 WhatsApp
-                    </button>
-                    <button id="copy-link" class="share-btn copy" onclick="shareResult('copy')">
-                        📋 Copiar Link
-                    </button>
+                    <button id="share-twitter" class="share-btn twitter" onclick="shareResult('twitter')">🐦 Twitter</button>
+                    <button id="share-whatsapp" class="share-btn whatsapp" onclick="shareResult('whatsapp')">💬 WhatsApp</button>
+                    <button id="copy-link" class="share-btn copy" onclick="shareResult('copy')">📋 Copiar Link</button>
                 </div>
             </div>
-
             <button id="restart-btn">🔄 Jogar Novamente</button>
         </div>
     </div>
-    <script src="game.js"></script>
+    <script src="./assets/js/game.js"></script>
 </body>
 </html>
