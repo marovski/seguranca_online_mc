@@ -4,6 +4,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aventura Segurança Online - Dekodifika Tech</title>
     <link rel="stylesheet" href="styles.css">
+    <!-- Add social share script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.10/clipboard.min.js"></script>
 </head>
 <body>
     <div id="game-container">
@@ -44,6 +46,23 @@
             <h2>Parabéns!</h2>
             <p>Completou a Aventura CiberSegura!</p>
             <p>🏆 Pontuação Final: <span id="final-score">0</span></p>
+            
+            <!-- Add social share section -->
+            <div class="social-share">
+                <p>Partilhe o seu resultado!</p>
+                <div class="share-buttons">
+                    <button id="share-twitter" class="share-btn twitter" onclick="shareResult('twitter')">
+                        🐦 Twitter
+                    </button>
+                    <button id="share-whatsapp" class="share-btn whatsapp" onclick="shareResult('whatsapp')">
+                        💬 WhatsApp
+                    </button>
+                    <button id="copy-link" class="share-btn copy" onclick="shareResult('copy')">
+                        📋 Copiar Link
+                    </button>
+                </div>
+            </div>
+
             <button id="restart-btn">🔄 Jogar Novamente</button>
         </div>
     </div>

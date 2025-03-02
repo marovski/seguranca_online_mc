@@ -1,3 +1,14 @@
+// Add this method outside the class to make it globally accessible
+function shareResult(platform) {
+    // Get the game instance (assuming it's the most recently created instance)
+    const gameInstances = window.securityGameInstances || [];
+    const lastGameInstance = gameInstances[gameInstances.length - 1];
+    
+    if (lastGameInstance) {
+        lastGameInstance.shareResult(platform);
+    }
+}
+
 class SecurityGame {
     constructor() {
         this.currentLevel = 0;
@@ -15,7 +26,7 @@ class SecurityGame {
                 ],
                 feedback: {
                     success: "Excelente! Uma palavra-passe forte combina letras maiúsculas e minúsculas, números e símbolos.",
-                    failure: "Esta palavra-passe não é suficientemente segura. Tente ủytilizar uma combinação de caracteres diferentes."
+                    failure: "Esta palavra-passe não é suficientemente segura. Tente utilizar uma combinação de caracteres diferentes."
                 }
             },
             {
@@ -47,11 +58,58 @@ class SecurityGame {
                     success: "Correto! Emails de domínios suspeitos e mensagens urgentes são sinais comuns de phishing.",
                     failure: "Preste atenção ao domínio do email e ao tom urgente da mensagem."
                 }
+            },
+            {
+                title: "Atualizações de Dispositivos",
+                type: "updates",
+                description: "Qual é a melhor prática para manter o seu dispositivo seguro?",
+                options: [
+                    {text: "Ignorar todas as atualizações", correct: false},
+                    {text: "Atualizar apenas quando for conveniente", correct: false},
+                    {text: "Ativar atualizações automáticas", correct: true},
+                    {text: "Atualizar apenas uma vez por ano", correct: false}
+                ],
+                feedback: {
+                    success: "Correto! Manter o dispositivo atualizado ajuda a corrigir vulnerabilidades de segurança.",
+                    failure: "As atualizações regulares são cruciais para proteger o seu dispositivo contra novas ameaças."
+                }
+            },
+            {
+                title: "Segurança em WiFi Público",
+                type: "wifi",
+                description: "Como se proteger ao usar WiFi público?",
+                options: [
+                    {text: "Fazer login em todas as contas normalmente", correct: false},
+                    {text: "Usar VPN e evitar transações sensíveis", correct: true},
+                    {text: "Deixar o WiFi sempre ligado", correct: false},
+                    {text: "Usar o mesmo WiFi sem cautela", correct: false}
+                ],
+                feedback: {
+                    success: "Excelente! Uma VPN protege a sua conexão em redes públicas.",
+                    failure: "Redes públicas podem ser inseguras. Tome precauções adicionais ao navegar."
+                }
             }
         ];
 
+        // Track game instances globally
+        window.securityGameInstances = window.securityGameInstances || [];
+        window.securityGameInstances.push(this);
+
         this.initializeGame();
         this.updateVisitCounter();
+
+        // Add event listeners for share buttons
+        document.getElementById('share-twitter')?.addEventListener('click', () => this.shareResult('twitter'));
+        document.getElementById('share-whatsapp')?.addEventListener('click', () => this.shareResult('whatsapp'));
+        document.getElementById('copy-link')?.addEventListener('click', () => this.shareResult('copy'));
+    }
+
+    shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
     }
 
     initializeGame() {
@@ -61,6 +119,8 @@ class SecurityGame {
     }
 
     startGame() {
+        this.levels = this.shuffleArray(this.levels);
+        
         this.switchScreen('title-screen', 'game-screen');
         this.loadLevel();
     }
@@ -80,17 +140,22 @@ class SecurityGame {
         const levelEmojis = {
             "password": "🔑",
             "2fa": "📱",
-            "phishing": "📧"
+            "phishing": "📧",
+            "updates": "🔄",
+            "wifi": "📶"
         };
 
         document.getElementById('level-title').textContent = `${levelEmojis[level.type]} ${level.title}`;
         document.getElementById('progress').style.width = `${(this.currentLevel / this.levels.length) * 100}%`;
 
+        // Shuffle the options for this level
+        const shuffledOptions = this.shuffleArray([...level.options]);
+
         const gameArea = document.getElementById('game-area');
         gameArea.innerHTML = `
             <p>${level.description}</p>
             <div class="options">
-                ${level.options.map((option, index) => `
+                ${shuffledOptions.map((option, index) => `
                     <button class="choice-btn" data-correct="${option.correct}">
                         ${option.text}
                     </button>
@@ -137,6 +202,8 @@ class SecurityGame {
     }
 
     restartGame() {
+        this.levels = this.shuffleArray(this.levels);
+        
         this.currentLevel = 0;
         this.score = 0;
         document.getElementById('score-value').textContent = this.score;
@@ -153,6 +220,26 @@ class SecurityGame {
         
         // Update the counter in the UI
         document.getElementById('visit-counter').textContent = visits;
+    }
+
+    shareResult(platform) {
+        const score = this.score;
+        const shareText = `Completei a Aventura Segurança Online com ${score} pontos! Teste os seus conhecimentos de cibersegurança em https://dekodifika.com`;
+        const url = 'https://dekodifika.com';
+
+        switch(platform) {
+            case 'twitter':
+                window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}`, '_blank');
+                break;
+            case 'whatsapp':
+                window.open(`https://wa.me/?text=${encodeURIComponent(shareText)}`, '_blank');
+                break;
+            case 'copy':
+                navigator.clipboard.writeText(shareText).then(() => {
+                    alert('Link copiado para a área de transferência!');
+                });
+                break;
+        }
     }
 }
 

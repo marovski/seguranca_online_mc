@@ -1,47 +1,63 @@
 :root {
-    --primary-color: #2c3e50;
-    --secondary-color: #3498db;
-    --success-color: #2ecc71;
-    --danger-color: #e74c3c;
-    --background-color: #ecf0f1;
+    --primary-color: #1a4b7c;  
+    --secondary-color: #2196f3;  
+    --success-color: #4caf50;  
+    --danger-color: #f44336;   
+    --background-color: #f0f4f8;  
+    --text-color: #333;
+    --card-background: #ffffff;
 }
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {
     background-color: var(--background-color);
     min-height: 100vh;
-    min-height: -webkit-fill-available;
     display: flex;
     justify-content: center;
     align-items: center;
+    line-height: 1.6;
+    color: var(--text-color);
 }
 
 #game-container {
     width: 95%;
-    max-width: 800px;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    max-width: 700px;
+    background: var(--card-background);
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
     overflow: hidden;
-    margin: 1rem;
+    border: 1px solid rgba(0,0,0,0.05);
+    transform: translateY(-20px);
+    transition: all 0.3s ease;
+}
+
+#game-container:hover {
+    box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+    transform: translateY(-25px);
 }
 
 .screen {
     display: none;
-    padding: 1.5rem;
+    padding: 2rem;
     text-align: center;
-    animation: fadeIn 0.5s ease-in;
+    animation: slideIn 0.5s ease-out;
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+@keyframes slideIn {
+    from { 
+        opacity: 0; 
+        transform: translateY(20px);
+    }
+    to { 
+        opacity: 1; 
+        transform: translateY(0);
+    }
 }
 
 .screen.active {
@@ -53,52 +69,47 @@ body {
 }
 
 .title-container h1 {
-    font-size: clamp(1.5rem, 4vw, 2.2rem);
-    color: var(--primary-color);
-    margin-bottom: 0.5rem;
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 800;
+    letter-spacing: -1px;
 }
 
 .author {
     color: var(--secondary-color);
-    font-style: italic;
-    margin-bottom: 1.5rem;
-    font-size: clamp(0.9rem, 2vw, 1rem);
+    font-weight: 500;
+    opacity: 0.8;
 }
 
 .emoji-icon {
-    font-size: clamp(2rem, 5vw, 2.5rem);
+    font-size: 3rem;
     margin: 1rem 0;
+    transform: scale(1);
+    transition: transform 0.3s ease;
 }
 
-h1 {
-    color: var(--primary-color);
-    margin-bottom: 1rem;
+.emoji-icon:hover {
+    transform: scale(1.1) rotate(5deg);
 }
 
 button {
-    background-color: var(--secondary-color);
+    background: linear-gradient(45deg, var(--secondary-color), #2962ff);
     color: white;
     border: none;
-    padding: clamp(0.8rem, 2vw, 1rem) clamp(1.5rem, 3vw, 2rem);
-    border-radius: 25px;
+    padding: 12px 24px;
+    border-radius: 30px;
     cursor: pointer;
-    font-size: clamp(0.9rem, 2.5vw, 1.1rem);
-    transition: all 0.3s ease;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    white-space: normal;
-    text-align: center;
-    justify-content: center;
-    width: auto;
-    min-width: 200px;
-    touch-action: manipulation;
-    min-height: 44px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: all 0.4s ease;
+    box-shadow: 0 4px 15px rgba(33,150,243,0.3);
 }
 
 button:hover {
-    transform: scale(1.05);
-    box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(33,150,243,0.4);
 }
 
 #level-info {
@@ -108,8 +119,8 @@ button:hover {
 #progress-bar {
     width: 100%;
     height: 12px;
-    background: #eee;
-    border-radius: 20px;
+    background: rgba(33,150,243,0.1);
+    border-radius: 10px;
     overflow: hidden;
     margin: 1.5rem 0;
 }
@@ -117,7 +128,7 @@ button:hover {
 #progress {
     width: 0%;
     height: 100%;
-    background: linear-gradient(90deg, var(--secondary-color), #2980b9);
+    background: linear-gradient(90deg, var(--secondary-color), #2962ff);
     transition: width 0.5s ease;
 }
 
@@ -155,15 +166,18 @@ button:hover {
     width: 90%;
     max-width: 500px;
     text-align: center;
-    box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.1);
     margin: 1rem;
 }
 
 .choice-btn {
+    background: rgba(33,150,243,0.05);
+    border: 1px solid rgba(33,150,243,0.2);
+    color: var(--text-color);
+    transition: all 0.3s ease;
     border-radius: 10px;
     margin: 0.8rem 0;
     padding: 1rem;
-    transition: all 0.3s ease;
     display: block;
     width: 100%;
     text-align: left;
@@ -173,7 +187,8 @@ button:hover {
 }
 
 .choice-btn:hover {
-    background-color: #4aa3df;
+    background: rgba(33,150,243,0.1);
+    border-color: var(--secondary-color);
 }
 
 .correct {
@@ -187,35 +202,91 @@ button:hover {
 .visit-counter {
     margin-top: 1rem;
     color: var(--secondary-color);
+    font-weight: 500;
+    opacity: 0.7;
     font-size: 0.9rem;
-    opacity: 0.8;
+}
+
+.social-share {
+    margin: 1.5rem 0;
+    text-align: center;
+}
+
+.share-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.share-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 10px 15px;
+    border-radius: 25px;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.share-btn.twitter {
+    background-color: #1DA1F2;
+    color: white;
+}
+
+.share-btn.whatsapp {
+    background-color: #25D366;
+    color: white;
+}
+
+.share-btn.copy {
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+.share-btn:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
 }
 
 @media screen and (max-width: 480px) {
+    #game-container {
+        width: 98%;
+        margin: 0.5rem;
+        border-radius: 10px;
+    }
+
     .screen {
         padding: 1rem;
     }
-    
+
     #game-area {
         padding: 0.5rem;
     }
-    
+
     .choice-btn {
         padding: 0.8rem;
         margin: 0.5rem 0;
     }
-    
+
     #level-info h2 {
         font-size: 1.2rem;
     }
-    
+
     #score {
         font-size: 1rem;
     }
-    
+
     .visit-counter {
         font-size: 0.8rem;
     }
+}
+
+/* Add smooth focus states for accessibility */
+button:focus, .choice-btn:focus {
+    outline: 2px solid var(--secondary-color);
+    outline-offset: 3px;
 }
 
 /* Add smooth scrolling and prevent content shift on mobile */
