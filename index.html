@@ -1,0 +1,52 @@
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aventura Segurança Online - Dekodifika Tech</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="game-container">
+        <div id="title-screen" class="screen active">
+            <div class="title-container">
+                <h1>Aventura Segurança Online - Dekodifika Tech</h1>
+                <div class="author">Por Mário Cardoso</div>
+                <div class="emoji-icon">🔐</div>
+                <p>Aprenda a proteger-se online através desta aventura interativa!</p>
+                <div class="visit-counter">👥 Total de Visitas: <span id="visit-counter">0</span></div>
+            </div>
+            <button id="start-btn">🎮 Começar Aventura</button>
+        </div>
+
+        <div id="game-screen" class="screen">
+            <div id="level-info">
+                <h2 id="level-title"></h2>
+                <div id="progress-bar">
+                    <div id="progress"></div>
+                </div>
+                <div id="score">🏆 Pontuação: <span id="score-value">0</span></div>
+            </div>
+
+            <div id="game-area"></div>
+
+            <div id="feedback-modal" class="modal">
+                <div class="modal-content">
+                    <div class="emoji-icon" id="feedback-emoji"></div>
+                    <h3 id="feedback-title"></h3>
+                    <p id="feedback-text"></p>
+                    <button id="continue-btn">➡️ Continuar</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="end-screen" class="screen">
+            <div class="emoji-icon">🎉</div>
+            <h2>Parabéns!</h2>
+            <p>Completou a Aventura CiberSegura!</p>
+            <p>🏆 Pontuação Final: <span id="final-score">0</span></p>
+            <button id="restart-btn">🔄 Jogar Novamente</button>
+        </div>
+    </div>
+    <script src="game.js"></script>
+</body>
+</html>
