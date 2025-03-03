@@ -46,7 +46,7 @@ class SecurityGame {
             {
                 title: "Autenticação de Dois Fatores",
                 type: "2fa",
-                description: "Qual é a melhor opção para configurar 2FA?",
+                description: "Qual é a melhor opção para configurar autenticação de dois fatores (2FA)?",
                 options: [
                     { text: "Utilizar apenas palavra-passe", correct: false },
                     { text: "SMS + palavra-passe", correct: false },
@@ -80,7 +80,7 @@ class SecurityGame {
                 options: [
                     { text: "Ignorar todas as atualizações", correct: false },
                     { text: "Atualizar apenas quando for conveniente", correct: false },
-                    { text: "Ativar atualizações automáticas, com controlo de permissões", correct: true },
+                    { text: "Ativar atualizações automáticas", correct: true },
                     { text: "Atualizar apenas uma vez por ano", correct: false }
                 ],
                 feedback: {
