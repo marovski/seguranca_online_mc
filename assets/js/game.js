@@ -202,11 +202,29 @@ class SecurityGame {
         this.currentLevel++;
         this.loadLevel();
     }
-
+    
     endGame() {
-        document.getElementById('final-score').textContent = this.score;
+        const finalScreen = document.getElementById('end-screen');
+        const finalScore = document.getElementById('final-score');
+        const endEmoji = finalScreen.querySelector('.emoji-icon');
+        const endTitle = finalScreen.querySelector('h2');
+        const endMessage = finalScreen.querySelector('p:nth-of-type(1)');
+
+        finalScore.textContent = this.score;
+
+        if (this.score >= 100) {
+            endEmoji.textContent = '🎉';
+            endTitle.textContent = 'Parabéns!';
+            endMessage.textContent = 'Completou a Aventura CiberSegura!';
+        } else {
+            endEmoji.textContent = '😔';
+            endTitle.textContent = 'Tente Novamente!';
+            endMessage.textContent = 'Ainda não conseguiu pontos suficientes. Continue a praticar para melhorar os seus conhecimentos de segurança online.';
+        }
+        
         this.switchScreen('game-screen', 'end-screen');
     }
+
 
     restartGame() {
         this.levels = this.shuffleArray(this.levels);
