@@ -80,7 +80,7 @@ class SecurityGame {
                 options: [
                     { text: "Ignorar todas as atualizações", correct: false },
                     { text: "Atualizar apenas quando for conveniente", correct: false },
-                    { text: "Ativar atualizações automáticas, com controlo de permissões", correct: true },
+                    { text: "Ativar atualizações automáticas", correct: true },
                     { text: "Atualizar apenas uma vez por ano", correct: false }
                 ],
                 feedback: {
