@@ -48,7 +48,7 @@ class SecurityGame {
                 type: "2fa",
                 description: "Qual é a melhor opção para configurar 2FA?",
                 options: [
-                    { text: "Usar apenas palavra-passe", correct: false },
+                    { text: "Utilizar apenas palavra-passe", correct: false },
                     { text: "SMS + palavra-passe", correct: false },
                     { text: "Aplicação autenticador + palavra-passe", correct: true },
                     { text: "Email de recuperação", correct: false }
@@ -80,7 +80,7 @@ class SecurityGame {
                 options: [
                     { text: "Ignorar todas as atualizações", correct: false },
                     { text: "Atualizar apenas quando for conveniente", correct: false },
-                    { text: "Ativar atualizações automáticas", correct: true },
+                    { text: "Ativar atualizações automáticas, com controlo de permissões", correct: true },
                     { text: "Atualizar apenas uma vez por ano", correct: false }
                 ],
                 feedback: {
@@ -91,12 +91,12 @@ class SecurityGame {
             {
                 title: "Segurança em WiFi Público",
                 type: "wifi",
-                description: "Como se proteger ao usar WiFi público?",
+                description: "Como se proteger ao Utilizar WiFi público?",
                 options: [
                     { text: "Fazer login em todas as contas normalmente", correct: false },
-                    { text: "Usar VPN e evitar transações sensíveis", correct: true },
+                    { text: "Utilizar VPN e evitar transações sensíveis", correct: true },
                     { text: "Deixar o WiFi sempre ligado", correct: false },
-                    { text: "Usar o mesmo WiFi sem cautela", correct: false }
+                    { text: "Utilizar o mesmo WiFi sem cautela", correct: false }
                 ],
                 feedback: {
                     success: "Excelente! Uma VPN protege a sua conexão em redes públicas.",
