@@ -46,7 +46,7 @@ class SecurityGame {
             {
                 title: "Autenticação de Dois Fatores",
                 type: "2fa",
-                description: "Qual é a melhor opção para configurar 2FA?",
+                description: "Qual é a melhor opção para configurar autenticação de dois fatores (2FA)?",
                 options: [
                     { text: "Utilizar apenas palavra-passe", correct: false },
                     { text: "SMS + palavra-passe", correct: false },
